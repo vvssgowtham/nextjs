@@ -1,0 +1,53 @@
+Route Handlers:
+By default naming convention should be like folder name in which route.ts is default naming convention for handling routes. 
+Similar to page routes route handlers can be organised in folders and nested in sub folders.
+If suppose page.tsx and route.ts is given in same file then by default route.ts will get executed. To avoid this conflict between page.tsx and route.ts we can move the route handler to an API sub directory i.e page: /profile and route is /profile/api.
+
+GET Request: 
+Used to fetch data simply we are using thunder client for testing out and we got the response.
+If we need new response with some text in it.We use it as [ return new Response("Message") ]
+If we want to send response as json or some status code we write it as [ return Response.json(variable_name) ]
+
+POST Request:
+Every route handler function receives the standard web request object as parameters(props) and this request object is used to access body data.
+In general express.js in order to access formData we use body-parser and here we simply define request as params as then instead of bodyparser we simply use request.json() for data.
+For a POST request status of 201 is more appropriate
+
+Dynamic Route Handlers:
+We need to create route handler for [ /comments/:id ] . Dynamic route handlers works similar to page routes in clientside.
+We create folder in square bracketts [] inside that we create route.ts file
+Inorder to dynamically access [ /:id ] nextjs automatically contains context as a second parameter which is params object which contains id in most of the cases.
+
+PATCH Request:
+A PATCH request applies partial modifications to a resource. In our case we are finding the index of the array which we want to modify with the help of findIndex method and then updated as usual.
+
+DELETE Request:
+A DELETE request deletes a specified resource in our case we delete a specified comment by id.
+As usual we will be params for deleting the data as per the id. 
+
+Redirects in Route Handlers:
+For redirecting we can use { redirect } function from next/navigation
+
+Headers in Route Handlers:
+HTTP headers represent the metadata associated with an API request and response.
+To read headers from the API sent from client to the server we use type nextRequest from "next/server" and inbuilt function named headers from "next/headers"
+For reference : navigate to "profile->api->route.ts"
+To set headers we need to return a new response with new headers.
+
+Cookies in Route Handlers:
+Cookies are small pieces of data that a server sends to a user's web browser.
+The browser may store the cookie and send it back to the same server wuth later requests.
+There are two approaches to SET and GET the cookie.
+Approach-1 : The Set-Cookie header in an HTTP response is used by the server to send a cookie to the client.
+To read the cookie in the route handler we make use of request parameter.
+Approach-2 : To set and get the cookies using the cookies() function provided by nextjs.
+
+Caching in Route Handlers:
+Route Handlers are cached by default when using the GET method with the Response object in Next.js
+Using dynamic mode in Segment Config Option will help us in not caching the GET request data.
+
+Middleware: 
+Middleware in Next.js is a powerful feature that offers a robust way to intercept and control the flow of requests and responses within your applicaions.
+1st Approach : We use NextResponse and type NextRequest from "next/server", matcher from redirecting from when specific path is hit.
+2nd Approach : We use conditional statemets
+Custom headers helps in setting out our own headers which helps in providing additional information to our data.
